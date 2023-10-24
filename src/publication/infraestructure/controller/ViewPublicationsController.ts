@@ -12,7 +12,6 @@ export class ViewPublicationsController {
         const publicationsWithDownloadURLs = await Promise.all(publications.map(async publication => {
             if (publication.multimedia) {
                 const bucket = admin.storage().bucket();
-                // Suponiendo que multimedia es el nombre del archivo en Firebase Storage
                 const fileName = decodeURIComponent(publication.multimedia.split('/o/')[1].split('?alt=media')[0]);
                 const file = bucket.file(fileName);
 
@@ -24,7 +23,6 @@ export class ViewPublicationsController {
                     publication.multimedia = downloadURL;
                 } catch (error) {
                     console.error("Error al obtener la URL de descarga:", error);
-                    // Opcional: establecer multimedia en null o manejar el error de otra manera
                 }
             }
             return publication;
@@ -32,5 +30,7 @@ export class ViewPublicationsController {
 
         res.status(200).send(publicationsWithDownloadURLs);
     }
+
+    
 }
 

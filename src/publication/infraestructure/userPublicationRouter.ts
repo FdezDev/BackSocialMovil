@@ -2,11 +2,17 @@ import express from "express";
 import { 
     userPublicationController, 
     viewPublicationsController, 
-    deletePublicationController 
+    deletePublicationController, 
+    viewImagesController,
+    viewAudioController,
+    viewGifsController,
+    viewPDFsController,
+    viewVideosController
 } from "./dependencies";
 import { authMiddleware } from "../../auth/middlewares/authMiddleware"; 
 
 export const userPublicationRouter = express.Router();
+
 
 // Middleware de autenticación
 userPublicationRouter.use(authMiddleware);
@@ -28,3 +34,18 @@ userPublicationRouter.delete(
     "/publication/:id", 
     deletePublicationController.run.bind(deletePublicationController)
 );
+
+// Ruta para obtener imágenes de Firebase
+userPublicationRouter.get('/images', viewImagesController.run.bind(viewImagesController));
+
+//Ruta para Obtener Audios Firebase
+userPublicationRouter.get('/audios', viewAudioController.run.bind(viewAudioController));
+
+//Ruta para Obtener gif Firebase
+userPublicationRouter.get('/gif', viewGifsController.run.bind(viewGifsController));
+
+//Ruta para Obtener video Firebase
+userPublicationRouter.get('/videos', viewVideosController.run.bind(viewVideosController));
+
+//Ruta para Obtener pdf Firebase
+userPublicationRouter.get('/pdf', viewPDFsController.run.bind(viewPDFsController));

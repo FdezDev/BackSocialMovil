@@ -1,10 +1,10 @@
 import { generateToken } from '../utils/jwt';
-import { comparePasswords } from '../utils/password';
 import { AuthRepository } from '../domain/authRepository';
 
 type AuthResponse = { 
     status: 'success' | 'error', 
-    token?: string, 
+    token?: string,
+    userId?: number, // Añadimos el ID del usuario
     message?: string 
 };
 
@@ -14,10 +14,11 @@ export class AuthUseCase {
     async run(email: string, password: string): Promise<AuthResponse> {
         const user = await this.authRepository.verifyUser(email, password);
         if (user) {
-            const token = generateToken({ email: user.email });
+            const token = generateToken({ email: user.email, userId: user.id });
             return {
                 status: 'success',
-                token
+                token,
+                userId: user.id  // Devolvemos el ID del usuario
             };
         } else {
             return {
