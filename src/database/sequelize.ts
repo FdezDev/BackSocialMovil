@@ -6,7 +6,7 @@ import LikeModel from '../reaction/infraestructure/models/likeModel';
 
 export const sequelize = new Sequelize({
     dialect: 'postgres',
-    host: 'localhost',
+    host: 'postgres.c5nxsrhv4sk0.us-east-2.rds.amazonaws.com',
     database: 'postgres',
     username: 'postgres',
     password: 'yeremi224',
